@@ -1,0 +1,80 @@
+---
+title: "Final Presentation"
+output: html_document
+---
+```{r}
+# Read in csv files
+lizards <- read.csv("/Users/yeechau/Downloads/eeb-174-final-project/Lizard_Data/Results_Directory/lizards_coords.csv", header = FALSE, stringsAsFactors = FALSE)
+lizard_species <- read.csv("/Users/yeechau/Downloads/eeb-174-final-project/Lizard_Data/Results_Directory/lizard_pbdb.csv", header = FALSE, stringsAsFactors = FALSE)
+# Define the column names
+colnames(lizards) <- c("collection_no","record_type","formation","lng","lat","collection_name","collection_subset","collection_aka","n_occs","early_interval","late_interval","max_ma","min_ma","reference_no")
+head(lizards)
+
+# Load libraries
+library(rworldmap)
+library(ggplot2)
+library(dplyr)
+#pre_cambrian_era <- lizards%>%filter(min_ma < 300) 
+
+# Takes an input that represents a point in time (e.g cretaceous period ~66 million years ago, so input would be 66)
+lizard_life <- function(years) { 
+  # These take any collection 
+  pre_era <- lizards%>%filter(min_ma < years)
+  post_era <- lizards%>%filter(min_ma > years)
+  newmap <- getMap(resolution = "low")
+  plot(newmap)
+  points(pre_era$lng, pre_era$lat, pch = 20, col = "red", cex = .9)
+  points(post_era$lng, post_era$lat, pch = 18, col = "black", cex = .9)
+  
+}
+z <- lizard_life(66)  
+
+
+#uniq (length uniq column name)
+#newmap <- getMap(resolution = "low")
+#plot(newmap)
+#points(lizards$lng, lizards$lat, pch = 20, col = "red", cex = .9)
+
+```
+```{r}
+library(ggplot2)
+library(forcats)
+setwd("/Users/yeechau/Downloads/eeb-174-final-project/Lizard_Data/Results_Directory")
+LIZARDSS <- read.csv("/Users/yeechau/Downloads/eeb-174-final-project/Lizard_Data/Results_Directory/squamata_ranges.csv", header = F, as.is = T)
+names(LIZARDSS) <- c ("genus", "species", "minage", "maxage")
+head(LIZARDSS)
+
+LIZARDSS_occ <- ggplot(LIZARDSS, aes( x = species, maxage, colour = genus))
+LIZARDSS_occ <- LIZARDSS_occ + geom_linerange(aes(ymin = minage, ymax = maxage + 0.5)) + theme(legend.position="none") +  coord_flip() +  theme(axis.text.y = element_text(size=0.5)) + scale_y_continuous(limits=c(0, 50), expand = c(0, 0), breaks=c(0, 10, 20, 30, 40, 50)) + labs(title = "Squamata Fossil Occurrences", x = "Species", y = "Ma ago") + theme(plot.title = element_text(hjust = 0.5, size=22, face = "bold"), axis.title =element_text(size=20))
+LIZARDSS_occ
+
+ggsave("faceted-ranges.pdf", scale = 6)
+library(tidyr)
+library(dplyr)
+diversity <- LIZARDSS %>% gather(key = type, value = age, minage, maxage) %>% mutate(count = ifelse(type == "maxage", 1, -1)) %>% group_by(age) %>% summarise(count = sum(count))  %>% arrange(-age, -count) %>% mutate(diversity = cumsum(count)) 
+
+ggplot(diversity, aes(x = age, y = diversity)) + geom_step()
+
+#ggsave(filename = "Squamata_fossil_occ.pdf")
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

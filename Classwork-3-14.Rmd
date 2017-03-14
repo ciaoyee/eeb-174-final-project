@@ -1,0 +1,47 @@
+---
+title: "Classwork-3-14"
+output: html_document
+---
+Presentations 
+1) Using the pyrate graphs that were produced, what were trends that you noticed? 
+With the peaks, what did those correlate to in what you were trying to discover?
+2) How did your histogram explain your discoveries about the large amount of canis?
+3) What did your extinction and speciation rates correlate to based on your other research?
+4) How did cooperation take a role in obtaining data and affecting the results?
+5) Can you clarify on how bootstrapping will help you clarify and improve your resulting output?
+6) What kinds of adaptations do you think allowed for the length of survival for the alligator mississipenis? 
+7) -me-
+8) If sloths like the tropics, why was there a higher move up north which seemed like it was away from the tropics? Was there a motivation or a noticable environmental change?
+9) Do you think if mammals and birds that usually don't have any interaction at all, were to suddenly be placed together, would they form any relationship? Have you noticed any trends in areas where your map shows the orange overlap?
+10) How were the trends in speciation within your pyrate graphs 
+11) Given that everyone has a differing metabolic and ventilatory threshold, and usually they are below it, is it possible for more training once they reach the threshold to increase the threshold?
+12) Given the fact that there certain biases for certain species, is there any way to filter out those additional results that account for the biases?
+13) Does leaving the cockroaches in the dark act as a control for the experiment? Given that the experiment had such a small sample size, how did you account for the error in extrapolation of data for your further analysis?
+14) What is the relation between your main extant species and sabretooth?
+15) Though you specifically chose 2 species, one for the american and one for the chinese one, how would you account for other birds that also carry the influenza? Would it be possible 
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
